@@ -24,19 +24,19 @@ impl Solution {
     pub fn add_two_numbers_internal(
         l1: Option<Box<ListNode>>,
         l2: Option<Box<ListNode>>,
-        remainder: i32,
+        addition: i32,
     ) -> Option<Box<ListNode>> {
-        if l1.is_none() && l2.is_none() && remainder == 0 {
+        if l1.is_none() && l2.is_none() && addition == 0 {
             return None;
         }
         if l1.is_none() && l2.is_none() {
-            return Some(Box::new(ListNode::new(remainder)));
+            return Some(Box::new(ListNode::new(addition)));
         }
         if l1.is_none() {
-            return Self::add_two_numbers_internal(l2, Some(Box::new(ListNode::new(remainder))), 0);
+            return Self::add_two_numbers_internal(l2, Some(Box::new(ListNode::new(addition))), 0);
         }
         if l2.is_none() {
-            return Self::add_two_numbers_internal(l1, Some(Box::new(ListNode::new(remainder))), 0);
+            return Self::add_two_numbers_internal(l1, Some(Box::new(ListNode::new(addition))), 0);
         }
 
         let l1 = l1.unwrap();
@@ -47,11 +47,14 @@ impl Solution {
         let val2 = l2.val;
         let next2 = l2.next;
 
-        let result = val1 + val2 + remainder;
+        let result = val1 + val2 + addition;
 
         let mut list_node = ListNode::new(result % 10);
-        list_node.next =
-            Self::add_two_numbers_internal(next1, next2, if result > 9 { 1 } else { 0 });
+        list_node.next = Self::add_two_numbers_internal(
+            next1,
+            next2,
+            if result > 9 { 1 } else { 0 }
+        );
 
         Some(Box::new(list_node))
     }

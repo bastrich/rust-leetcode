@@ -2,8 +2,10 @@ struct Solution;
 
 impl Solution {
     pub fn two_sum(nums: Vec<i32>, target: i32) -> Vec<i32> {
-        let mut sorted_nums: Vec<(usize, i32)> =
-            nums.iter().enumerate().map(|(i, &v)| (i, v)).collect();
+        let mut sorted_nums: Vec<(usize, i32)> =  nums.iter()
+            .enumerate()
+            .map(|(i, &v)| (i, v))
+            .collect();
         sorted_nums.sort_by_key(|pair| pair.1);
         let mut i = 0;
         let mut j = nums.len() - 1;
